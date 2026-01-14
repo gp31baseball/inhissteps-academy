@@ -142,3 +142,10 @@ export default async function HomePage() {
     </main>
   );
 }
+<section className='bg-slate-100 py-20'>
+  <div className='max-w-6xl mx-auto px-6 grid md:grid-cols-3 gap-6'>
+    <div className='h-56 rounded-xl bg-slate-300'></div>
+    <div className='h-56 rounded-xl bg-slate-300'></div>
+    <div className='h-56 rounded-xl bg-slate-300'></div>
+  </div>
+</section>
