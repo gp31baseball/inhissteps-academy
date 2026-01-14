@@ -13,9 +13,34 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="antialiased bg-white text-slate-900">
-        {children}
-      </body>
+      <body className="bg-slate-50 text-slate-900 antialiased">
+  <div className="min-h-screen flex flex-col">
+    <header className="bg-white border-b">
+      <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+        <span className="font-semibold text-lg">
+          In His Steps Academy
+        </span>
+        <a
+          href="#tour"
+          className="text-sm font-medium text-blue-600 hover:underline"
+        >
+          Schedule a Tour
+        </a>
+      </div>
+    </header>
+
+    <main className="flex-1">
+      {children}
+    </main>
+
+    <footer className="bg-white border-t mt-24">
+      <div className="max-w-6xl mx-auto px-6 py-8 text-sm text-slate-500">
+        © {new Date().getFullYear()} In His Steps Academy
+      </div>
+    </footer>
+  </div>
+</body>
+
     </html>
   );
 }
