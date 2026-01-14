@@ -29,7 +29,7 @@ export default async function HomePage() {
           </div>
         )}
 
-        <div className="relative min-h-[70vh] md:min-h-[80vh] pt-20 flex items-center">
+        <div className="relative min-h-[55vh] md:min-h-[80vh] pt-16 md:pt-20 flex items-center">
           <div className="max-w-6xl mx-auto px-6 text-center text-white space-y-6">
             <h1 className="text-4xl md:text-5xl font-semibold">
               {hero?.headline ?? 'In His Steps Academy'}
@@ -44,14 +44,14 @@ export default async function HomePage() {
             <div className="flex justify-center gap-4 pt-6">
               <Link
                 href="#tour"
-                className="rounded-md bg-blue-600 px-6 py-3 font-medium hover:bg-blue-700"
+                className="rounded-md bg-blue-600 px-6 py-3 font-medium hover:bg-blue-700 transition"
               >
                 Schedule a Tour
               </Link>
 
               <Link
                 href="#programs"
-                className="rounded-md bg-white/90 px-6 py-3 font-medium text-slate-900 hover:bg-white"
+                className="rounded-md bg-white/90 px-6 py-3 font-medium text-slate-900 hover:bg-white transition"
               >
                 View Programs
               </Link>
@@ -62,16 +62,16 @@ export default async function HomePage() {
 
       {/* ANNOUNCEMENTS */}
       <section className="bg-white">
-        <div className="max-w-6xl mx-auto px-6 py-20 grid md:grid-cols-2 gap-12 items-center">
+        <div className="max-w-6xl mx-auto px-6 py-14 md:py-20 grid md:grid-cols-2 gap-12 items-center">
 
           {/* IMAGE SIDE */}
-          <div className="relative h-72 md:h-80 rounded-xl overflow-hidden">
+          <div className="relative h-56 md:h-80 rounded-xl overflow-hidden">
             <img
               src="/announce2.png"
               alt="Student artwork and creativity"
               className="h-full w-full object-cover object-bottom"
             />
-            <div className="absolute inset-0 bg-white/30" />
+            <div className="absolute inset-0 bg-white/25" />
 
             <div className="absolute bottom-4 left-4 right-4">
               <p className="inline-block rounded-lg bg-white/90 px-4 py-2 text-sm text-slate-700 shadow">
@@ -114,81 +114,66 @@ export default async function HomePage() {
         </div>
       </section>
 
-    {/* EVENTS */}
-<section className="bg-slate-100">
-  <div className="max-w-6xl mx-auto px-6 py-20 space-y-8">
+      {/* EVENTS */}
+      <section className="bg-slate-100">
+        <div className="max-w-6xl mx-auto px-6 py-20 space-y-8">
 
-    <div className="flex items-center justify-between">
-      <h2 className="text-2xl font-semibold">Upcoming Events</h2>
-      <span className="text-sm text-slate-500">
-        Stay connected
-      </span>
-    </div>
+          <div className="flex items-center justify-between">
+            <h2 className="text-2xl font-semibold">Upcoming Events</h2>
+            <span className="text-sm text-slate-500">
+              Stay connected
+            </span>
+          </div>
 
-    {events.length === 0 ? (
-      <p className="text-slate-600">
-        Check back soon for upcoming school events and important dates.
-      </p>
-    ) : (
-      <div className="grid md:grid-cols-2 gap-6">
-        {events.map((e: any) => {
-          const date = e.startDate ? new Date(e.startDate) : null;
+          {events.length === 0 ? (
+            <p className="text-slate-600">
+              Check back soon for upcoming school events and important dates.
+            </p>
+          ) : (
+            <div className="grid md:grid-cols-2 gap-6">
+              {events.map((e: any) => {
+                const date = e.startDate ? new Date(e.startDate) : null;
 
-          return (
-            <div
-              key={e._id}
-              className="
-                flex gap-4
-                rounded-xl bg-white p-6
-                shadow-sm border
-                hover:shadow-md transition
-              "
-            >
-              {/* DATE BADGE */}
-              {date && (
-               <div className="
-  flex flex-col items-center justify-center
-  w-16 h-16 rounded-lg
-  bg-blue-50 text-blue-700
-  border border-blue-100
-  shrink-0
-">
-  <span className="text-xs uppercase tracking-wide">
-    {date.toLocaleDateString(undefined, { month: 'short' })}
-  </span>
-  <span className="text-xl font-semibold leading-none">
-    {date.getDate()}
-  </span>
-</div>
+                return (
+                  <div
+                    key={e._id}
+                    className="flex gap-4 rounded-xl bg-white p-6 shadow-sm border hover:shadow-md transition"
+                  >
+                    {date && (
+                      <div className="flex flex-col items-center justify-center w-16 h-16 rounded-lg bg-blue-50 text-blue-700 border border-blue-100 shrink-0">
+                        <span className="text-xs uppercase tracking-wide">
+                          {date.toLocaleDateString(undefined, { month: 'short' })}
+                        </span>
+                        <span className="text-xl font-semibold leading-none">
+                          {date.getDate()}
+                        </span>
+                      </div>
+                    )}
 
+                    <div className="space-y-1">
+                      <h3 className="font-medium text-lg text-slate-900">
+                        {e.title}
+                      </h3>
 
-              )}
+                      {e.audience && (
+                        <p className="text-sm text-slate-500">
+                          {e.audience}
+                        </p>
+                      )}
 
-              {/* EVENT CONTENT */}
-              <div className="space-y-1">
-                <h3 className="font-medium text-lg text-slate-900">
-                  {e.title}
-                </h3>
-
-                {e.audience && (
-                  <p className="text-sm text-slate-500">
-                    {e.audience}
-                  </p>
-                )}
-
-                {e.description && (
-                  <p className="text-slate-600 mt-1">
-                    {e.description}
-                  </p>
-                )}
-              </div>
+                      {e.description && (
+                        <p className="text-slate-600 mt-1">
+                          {e.description}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
             </div>
-          );
-        })}
-      </div>
-    )}
-  </div>
-</section>
+          )}
+        </div>
+      </section>
 
       {/* PROGRAMS */}
       <section id="programs" className="max-w-6xl mx-auto px-6 py-20 space-y-10">
@@ -225,17 +210,19 @@ export default async function HomePage() {
       </section>
 
       {/* CTA */}
-      <section id="tour" className="bg-blue-600 text-white">
+      <section id="tour" className="bg-slate-900 text-white">
         <div className="max-w-6xl mx-auto px-6 py-24 text-center space-y-6">
           <h2 className="text-3xl font-semibold">
             Come See In His Steps Academy
           </h2>
-          <p className="text-blue-100 max-w-xl mx-auto">
+
+          <p className="text-slate-300 max-w-xl mx-auto">
             Schedule a tour and experience our community firsthand.
           </p>
+
           <Link
             href="/contact"
-            className="inline-flex items-center rounded-md bg-white px-6 py-3 font-medium text-blue-600 hover:bg-slate-100"
+            className="inline-flex items-center rounded-md bg-white px-6 py-3 font-medium text-slate-900 hover:bg-slate-100 transition"
           >
             Schedule a Tour
           </Link>
