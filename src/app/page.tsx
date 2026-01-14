@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { PortableText } from '@portabletext/react';
 
 import { getHero } from '@/sanity/lib/getHero';
 import { getAnnouncements } from '@/sanity/lib/getAnnouncements';
@@ -60,65 +61,104 @@ export default async function HomePage() {
       </section>
 
       {/* ANNOUNCEMENTS */}
-      <section className="max-w-6xl mx-auto px-6 space-y-8">
-        <h2 className="text-2xl font-semibold">This Week at In His Steps</h2>
+      <section className="bg-white">
+        <div className="max-w-6xl mx-auto px-6 py-20 grid md:grid-cols-2 gap-12 items-center">
 
-        <div className="grid md:grid-cols-2 gap-6">
-          {announcements.map((a: any) => (
-            <div key={a._id} className="rounded-xl border bg-white p-6 shadow-sm">
-              <h3 className="font-semibold text-lg">{a.title}</h3>
-              {a.body && <p className="mt-2 text-slate-600 line-clamp-3">{a.body}</p>}
+          {/* IMAGE SIDE */}
+          <div className="relative h-72 md:h-80 rounded-xl overflow-hidden">
+            <img
+              src="/announce2.png"
+              alt="Student artwork and creativity"
+              className="h-full w-full object-cover object-bottom"
+            />
+            <div className="absolute inset-0 bg-white/30" />
+
+            <div className="absolute bottom-4 left-4 right-4">
+              <p className="inline-block rounded-lg bg-white/90 px-4 py-2 text-sm text-slate-700 shadow">
+                A glimpse into life at In His Steps Academy
+              </p>
             </div>
-          ))}
+          </div>
+
+          {/* TEXT SIDE */}
+          <div className="space-y-6">
+            <div className="flex items-center justify-between">
+              <h2 className="text-2xl font-semibold">
+                This Week at In His Steps
+              </h2>
+              <span className="text-sm text-slate-500">
+                Updated weekly
+              </span>
+            </div>
+
+            <div className="space-y-4">
+              {announcements.map((a: any) => (
+                <div
+                  key={a._id}
+                  className="rounded-lg border-l-4 border-blue-600 bg-slate-50 p-4"
+                >
+                  <h3 className="font-medium text-slate-900">
+                    {a.title}
+                  </h3>
+
+                  {a.body && (
+                    <div className="prose prose-slate max-w-none mt-1">
+                      <PortableText value={a.body} />
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+
         </div>
       </section>
 
-     {/* EVENTS */}
-<section className="bg-slate-100">
-  <div className="max-w-6xl mx-auto px-6 py-20 space-y-8">
-    <h2 className="text-2xl font-semibold">Upcoming Events</h2>
+      {/* EVENTS */}
+      <section className="bg-slate-100">
+        <div className="max-w-6xl mx-auto px-6 py-20 space-y-8">
+          <h2 className="text-2xl font-semibold">Upcoming Events</h2>
 
-    {events.length === 0 ? (
-      <p className="text-slate-600">
-        Check back soon for upcoming school events.
-      </p>
-    ) : (
-      <div className="grid md:grid-cols-2 gap-6">
-        {events.map((e: any) => (
-          <div
-            key={e._id}
-            className="rounded-xl bg-white p-6 shadow-sm border"
-          >
-            <h3 className="font-medium text-lg">{e.title}</h3>
+          {events.length === 0 ? (
+            <p className="text-slate-600">
+              Check back soon for upcoming school events.
+            </p>
+          ) : (
+            <div className="grid md:grid-cols-2 gap-6">
+              {events.map((e: any) => (
+                <div
+                  key={e._id}
+                  className="rounded-xl bg-white p-6 shadow-sm border"
+                >
+                  <h3 className="font-medium text-lg">{e.title}</h3>
 
-            {e.startDate && (
-              <p className="text-sm text-slate-500 mt-1">
-                {new Date(e.startDate).toLocaleDateString(undefined, {
-                  month: 'long',
-                  day: 'numeric',
-                  year: 'numeric',
-                })}
-              </p>
-            )}
+                  {e.startDate && (
+                    <p className="text-sm text-slate-500 mt-1">
+                      {new Date(e.startDate).toLocaleDateString(undefined, {
+                        month: 'long',
+                        day: 'numeric',
+                        year: 'numeric',
+                      })}
+                    </p>
+                  )}
 
-            {e.audience && (
-              <p className="text-sm text-slate-500">
-                {e.audience}
-              </p>
-            )}
+                  {e.audience && (
+                    <p className="text-sm text-slate-500">
+                      {e.audience}
+                    </p>
+                  )}
 
-            {e.description && (
-              <p className="mt-2 text-slate-600">
-                {e.description}
-              </p>
-            )}
-          </div>
-        ))}
-      </div>
-    )}
-  </div>
-</section>
-
+                  {e.description && (
+                    <p className="mt-2 text-slate-600">
+                      {e.description}
+                    </p>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
 
       {/* PROGRAMS */}
       <section id="programs" className="max-w-6xl mx-auto px-6 py-20 space-y-10">
@@ -132,11 +172,10 @@ export default async function HomePage() {
         <div className="grid md:grid-cols-3 gap-8">
           {programs.map((p: any) => (
             <Link
-  key={p._id}
-  href={`/programs/${p.slug.current}`}
-  className="rounded-xl bg-white border overflow-hidden shadow-sm hover:shadow-md transition"
->
-
+              key={p._id}
+              href={`/programs/${p.slug.current}`}
+              className="rounded-xl bg-white border overflow-hidden shadow-sm hover:shadow-md transition"
+            >
               {p.image && (
                 <img
                   src={urlFor(p.image).width(600).height(400).url()}
@@ -146,26 +185,21 @@ export default async function HomePage() {
               )}
               <div className="p-6">
                 <h3 className="font-semibold text-lg">{p.name}</h3>
-                {p.summary && <p className="text-slate-600 mt-2">{p.summary}</p>}
+                {p.summary && (
+                  <p className="text-slate-600 mt-2">{p.summary}</p>
+                )}
               </div>
             </Link>
           ))}
         </div>
       </section>
 
-      {/* LIFESTYLE STRIP */}
-      <section className="bg-slate-100 py-20">
-        <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-3 gap-6">
-          <div className="h-56 bg-slate-300 rounded-xl" />
-          <div className="h-56 bg-slate-300 rounded-xl" />
-          <div className="h-56 bg-slate-300 rounded-xl" />
-        </div>
-      </section>
-
       {/* CTA */}
       <section id="tour" className="bg-blue-600 text-white">
         <div className="max-w-6xl mx-auto px-6 py-24 text-center space-y-6">
-          <h2 className="text-3xl font-semibold">Come See In His Steps Academy</h2>
+          <h2 className="text-3xl font-semibold">
+            Come See In His Steps Academy
+          </h2>
           <p className="text-blue-100 max-w-xl mx-auto">
             Schedule a tour and experience our community firsthand.
           </p>
@@ -181,10 +215,3 @@ export default async function HomePage() {
     </main>
   );
 }
-<section className='bg-slate-100 py-20'>
-  <div className='max-w-6xl mx-auto px-6 grid md:grid-cols-3 gap-6'>
-    <div className='h-56 rounded-xl bg-slate-300'></div>
-    <div className='h-56 rounded-xl bg-slate-300'></div>
-    <div className='h-56 rounded-xl bg-slate-300'></div>
-  </div>
-</section>

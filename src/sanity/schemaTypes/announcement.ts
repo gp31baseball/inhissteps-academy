@@ -7,13 +7,15 @@ export default defineType({
   fields: [
     defineField({
       name: 'title',
+      title: 'Title',
       type: 'string',
       validation: Rule => Rule.required(),
     }),
     defineField({
       name: 'body',
-      type: 'text',
-      rows: 4,
+      title: 'Body',
+      type: 'array',
+      of: [{ type: 'block' }],
     }),
   ],
 });
