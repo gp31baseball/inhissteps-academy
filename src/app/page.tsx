@@ -73,13 +73,52 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* EVENTS */}
-      <section className="bg-slate-100">
-        <div className="max-w-6xl mx-auto px-6 py-20 space-y-8">
-          <h2 className="text-2xl font-semibold">Upcoming Events</h2>
-          <p className="text-slate-600">Check back soon for upcoming school events.</p>
-        </div>
-      </section>
+     {/* EVENTS */}
+<section className="bg-slate-100">
+  <div className="max-w-6xl mx-auto px-6 py-20 space-y-8">
+    <h2 className="text-2xl font-semibold">Upcoming Events</h2>
+
+    {events.length === 0 ? (
+      <p className="text-slate-600">
+        Check back soon for upcoming school events.
+      </p>
+    ) : (
+      <div className="grid md:grid-cols-2 gap-6">
+        {events.map((e: any) => (
+          <div
+            key={e._id}
+            className="rounded-xl bg-white p-6 shadow-sm border"
+          >
+            <h3 className="font-medium text-lg">{e.title}</h3>
+
+            {e.startDate && (
+              <p className="text-sm text-slate-500 mt-1">
+                {new Date(e.startDate).toLocaleDateString(undefined, {
+                  month: 'long',
+                  day: 'numeric',
+                  year: 'numeric',
+                })}
+              </p>
+            )}
+
+            {e.audience && (
+              <p className="text-sm text-slate-500">
+                {e.audience}
+              </p>
+            )}
+
+            {e.description && (
+              <p className="mt-2 text-slate-600">
+                {e.description}
+              </p>
+            )}
+          </div>
+        ))}
+      </div>
+    )}
+  </div>
+</section>
+
 
       {/* PROGRAMS */}
       <section id="programs" className="max-w-6xl mx-auto px-6 py-20 space-y-10">
