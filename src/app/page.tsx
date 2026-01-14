@@ -114,51 +114,81 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* EVENTS */}
-      <section className="bg-slate-100">
-        <div className="max-w-6xl mx-auto px-6 py-20 space-y-8">
-          <h2 className="text-2xl font-semibold">Upcoming Events</h2>
+    {/* EVENTS */}
+<section className="bg-slate-100">
+  <div className="max-w-6xl mx-auto px-6 py-20 space-y-8">
 
-          {events.length === 0 ? (
-            <p className="text-slate-600">
-              Check back soon for upcoming school events.
-            </p>
-          ) : (
-            <div className="grid md:grid-cols-2 gap-6">
-              {events.map((e: any) => (
-                <div
-                  key={e._id}
-                  className="rounded-xl bg-white p-6 shadow-sm border"
-                >
-                  <h3 className="font-medium text-lg">{e.title}</h3>
+    <div className="flex items-center justify-between">
+      <h2 className="text-2xl font-semibold">Upcoming Events</h2>
+      <span className="text-sm text-slate-500">
+        Stay connected
+      </span>
+    </div>
 
-                  {e.startDate && (
-                    <p className="text-sm text-slate-500 mt-1">
-                      {new Date(e.startDate).toLocaleDateString(undefined, {
-                        month: 'long',
-                        day: 'numeric',
-                        year: 'numeric',
-                      })}
-                    </p>
-                  )}
+    {events.length === 0 ? (
+      <p className="text-slate-600">
+        Check back soon for upcoming school events and important dates.
+      </p>
+    ) : (
+      <div className="grid md:grid-cols-2 gap-6">
+        {events.map((e: any) => {
+          const date = e.startDate ? new Date(e.startDate) : null;
 
-                  {e.audience && (
-                    <p className="text-sm text-slate-500">
-                      {e.audience}
-                    </p>
-                  )}
+          return (
+            <div
+              key={e._id}
+              className="
+                flex gap-4
+                rounded-xl bg-white p-6
+                shadow-sm border
+                hover:shadow-md transition
+              "
+            >
+              {/* DATE BADGE */}
+              {date && (
+               <div className="
+  flex flex-col items-center justify-center
+  w-16 h-16 rounded-lg
+  bg-blue-50 text-blue-700
+  border border-blue-100
+  shrink-0
+">
+  <span className="text-xs uppercase tracking-wide">
+    {date.toLocaleDateString(undefined, { month: 'short' })}
+  </span>
+  <span className="text-xl font-semibold leading-none">
+    {date.getDate()}
+  </span>
+</div>
 
-                  {e.description && (
-                    <p className="mt-2 text-slate-600">
-                      {e.description}
-                    </p>
-                  )}
-                </div>
-              ))}
+
+              )}
+
+              {/* EVENT CONTENT */}
+              <div className="space-y-1">
+                <h3 className="font-medium text-lg text-slate-900">
+                  {e.title}
+                </h3>
+
+                {e.audience && (
+                  <p className="text-sm text-slate-500">
+                    {e.audience}
+                  </p>
+                )}
+
+                {e.description && (
+                  <p className="text-slate-600 mt-1">
+                    {e.description}
+                  </p>
+                )}
+              </div>
             </div>
-          )}
-        </div>
-      </section>
+          );
+        })}
+      </div>
+    )}
+  </div>
+</section>
 
       {/* PROGRAMS */}
       <section id="programs" className="max-w-6xl mx-auto px-6 py-20 space-y-10">
