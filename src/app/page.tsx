@@ -1,11 +1,13 @@
 import Link from 'next/link';
 import { getAnnouncements } from '@/sanity/lib/getAnnouncements';
 import { getEvents } from '@/sanity/lib/getEvents';
-
+import { getPrograms } from '@/sanity/lib/getPrograms';
+import { urlFor } from '@/sanity/lib/image';
 
 export default async function HomePage() {
   const announcements = await getAnnouncements();
   const events = await getEvents();
+  const programs = await getPrograms();
 
   return (
     <main className="space-y-24">
@@ -91,11 +93,13 @@ export default async function HomePage() {
                   className="rounded-xl bg-white p-5 shadow-sm"
                 >
                   <p className="font-medium">{e.title}</p>
+
                   {e.startDate && (
                     <p className="text-sm text-slate-500 mt-1">
                       {new Date(e.startDate).toLocaleDateString()}
                     </p>
                   )}
+
                   {e.audience && (
                     <p className="text-sm text-slate-500">
                       {e.audience}
@@ -108,7 +112,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* PROGRAMS */}
+      {/* PROGRAMS (SANITY + IMAGES) */}
       <section
         id="programs"
         className="max-w-6xl mx-auto px-6 py-20 space-y-10"
@@ -124,35 +128,32 @@ export default async function HomePage() {
         </div>
 
         <div className="grid md:grid-cols-3 gap-8">
-          <div className="rounded-xl bg-white border p-6 shadow-sm">
-            <h3 className="font-semibold text-lg">
-              Mother’s Day Out
-            </h3>
-            <p className="text-slate-600 mt-2">
-              A nurturing environment for our youngest learners to grow,
-              explore, and feel safe.
-            </p>
-          </div>
+          {programs.map((p: any) => (
+            <div
+              key={p._id}
+              className="rounded-xl bg-white border overflow-hidden shadow-sm"
+            >
+              {p.image && (
+                <img
+                  src={urlFor(p.image).width(600).height(400).url()}
+                  alt={p.name}
+                  className="h-48 w-full object-cover"
+                />
+              )}
 
-          <div className="rounded-xl bg-white border p-6 shadow-sm">
-            <h3 className="font-semibold text-lg">
-              Preschool
-            </h3>
-            <p className="text-slate-600 mt-2">
-              Preparing children academically, socially, and spiritually
-              for kindergarten.
-            </p>
-          </div>
+              <div className="p-6">
+                <h3 className="font-semibold text-lg">
+                  {p.name}
+                </h3>
 
-          <div className="rounded-xl bg-white border p-6 shadow-sm">
-            <h3 className="font-semibold text-lg">
-              Elementary
-            </h3>
-            <p className="text-slate-600 mt-2">
-              A strong academic foundation combined with faith-based
-              character development.
-            </p>
-          </div>
+                {p.summary && (
+                  <p className="text-slate-600 mt-2">
+                    {p.summary}
+                  </p>
+                )}
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
