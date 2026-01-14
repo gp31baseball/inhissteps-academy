@@ -6,7 +6,8 @@ export async function getPrograms() {
       _id,
       name,
       summary,
-      image
+      image,
+      slug
     }
   `);
 }

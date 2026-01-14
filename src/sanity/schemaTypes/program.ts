@@ -21,5 +21,15 @@ export default defineType({
       type: 'image',
       options: { hotspot: true },
     }),
+    defineField({
+  name: 'slug',
+  type: 'slug',
+  options: {
+    source: 'name',
+    maxLength: 96,
+  },
+  validation: Rule => Rule.required(),
+}),
+
   ],
 });
