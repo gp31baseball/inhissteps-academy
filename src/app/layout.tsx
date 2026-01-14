@@ -15,19 +15,25 @@ export default function RootLayout({
     <html lang="en">
       <body className="bg-slate-50 text-slate-900 antialiased">
   <div className="min-h-screen flex flex-col">
-    <header className="bg-white border-b">
-      <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-        <span className="font-semibold text-lg">
-          In His Steps Academy
-        </span>
-        <a
-          href="#tour"
-          className="text-sm font-medium text-blue-600 hover:underline"
-        >
-          Schedule a Tour
-        </a>
-      </div>
-    </header>
+    <header className="
+  sticky top-0 z-50
+  bg-white/90 backdrop-blur
+  border-b
+">
+  <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+    <span className="font-semibold text-lg">
+      In His Steps Academy
+    </span>
+
+    <a
+      href="#tour"
+      className="text-sm font-medium text-blue-600 hover:underline"
+    >
+      Schedule a Tour
+    </a>
+  </div>
+</header>
+
 
     <main className="flex-1">
       {children}

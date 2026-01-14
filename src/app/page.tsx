@@ -1,10 +1,13 @@
 import Link from 'next/link';
+
+import { getHero } from '@/sanity/lib/getHero';
 import { getAnnouncements } from '@/sanity/lib/getAnnouncements';
 import { getEvents } from '@/sanity/lib/getEvents';
 import { getPrograms } from '@/sanity/lib/getPrograms';
 import { urlFor } from '@/sanity/lib/image';
 
 export default async function HomePage() {
+  const hero = await getHero();
   const announcements = await getAnnouncements();
   const events = await getEvents();
   const programs = await getPrograms();
@@ -12,35 +15,62 @@ export default async function HomePage() {
   return (
     <main className="space-y-24">
 
-      {/* HERO */}
-      <section className="bg-white border-b">
-        <div className="max-w-6xl mx-auto px-6 py-24 text-center space-y-6">
-          <h1 className="text-4xl md:text-5xl font-semibold">
-            In His Steps Academy
-          </h1>
+     {/* HERO (SANITY POWERED) */}
+<section className="relative w-full">
+  {hero?.image && (
+    <div className="absolute inset-0">
+      <img
+        src={urlFor(hero.image).width(2000).height(1200).url()}
+        alt={hero.headline}
+        className="
+          h-full w-full
+          object-cover
+          object-center
+        "
+      />
+      <div className="absolute inset-0 bg-black/40" />
+    </div>
+  )}
 
-          <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-            A Christ-centered education where children are known, loved,
-            and guided to grow in faith and learning.
-          </p>
+  <div
+    className="
+      relative
+      min-h-[70vh]
+      md:min-h-[80vh]
+      flex
+      items-center
+    "
+  >
+    <div className="max-w-6xl mx-auto px-6 text-center text-white space-y-6">
+      <h1 className="text-4xl md:text-5xl font-semibold">
+        {hero?.headline ?? 'In His Steps Academy'}
+      </h1>
 
-          <div className="flex justify-center gap-4 pt-6">
-            <Link
-              href="#tour"
-              className="inline-flex items-center rounded-md bg-blue-600 px-6 py-3 text-white font-medium hover:bg-blue-700"
-            >
-              Schedule a Tour
-            </Link>
+      {hero?.subheadline && (
+        <p className="text-lg text-white/90 max-w-2xl mx-auto">
+          {hero.subheadline}
+        </p>
+      )}
 
-            <Link
-              href="#programs"
-              className="inline-flex items-center rounded-md border px-6 py-3 font-medium hover:bg-slate-100"
-            >
-              View Programs
-            </Link>
-          </div>
-        </div>
-      </section>
+      <div className="flex justify-center gap-4 pt-6">
+        <Link
+          href="#tour"
+          className="rounded-md bg-blue-600 px-6 py-3 font-medium hover:bg-blue-700"
+        >
+          Schedule a Tour
+        </Link>
+
+        <Link
+          href="#programs"
+          className="rounded-md bg-white/90 px-6 py-3 font-medium text-slate-900 hover:bg-white"
+        >
+          View Programs
+        </Link>
+      </div>
+    </div>
+  </div>
+</section>
+
 
       {/* ANNOUNCEMENTS */}
       <section className="max-w-6xl mx-auto px-6 space-y-8">
@@ -112,7 +142,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* PROGRAMS (SANITY + IMAGES) */}
+      {/* PROGRAMS */}
       <section
         id="programs"
         className="max-w-6xl mx-auto px-6 py-20 space-y-10"
