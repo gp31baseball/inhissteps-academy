@@ -86,29 +86,39 @@ export default function RootLayout({
             </p>
 
             <div className="flex items-center gap-4">
-              <a
-                href="https://fortyonebuilt.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-slate-700"
-              >
-                Built by FortyOneBuilt
-              </a>
+  <a
+    href="https://fortyonebuilt.com"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="hover:text-slate-700"
+  >
+    Built by FortyOneBuilt
+  </a>
 
-              <a
-                href="https://apps.apple.com/us/app/talk-of-pearland/id6757129739"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="opacity-50 hover:opacity-80 transition"
-                aria-label="Talk of Pearland"
-              >
-                <img
-                  src="/top-logo-mark.png"
-                  alt="Talk of Pearland"
-                  className="h-5 w-auto"
-                />
-              </a>
-            </div>
+  <a
+    href="https://www.facebook.com/inhisstepsacademy/"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="hover:text-slate-700"
+  >
+    Facebook
+  </a>
+
+  <a
+    href="https://apps.apple.com/us/app/talk-of-pearland/id6757129739"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="opacity-50 hover:opacity-80 transition"
+    aria-label="Talk of Pearland"
+  >
+    <img
+      src="/top-logo-mark.png"
+      alt="Talk of Pearland"
+      className="h-5 w-auto"
+    />
+  </a>
+</div>
+
           </div>
         </footer>
 
